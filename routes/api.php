@@ -35,3 +35,4 @@ Route::group([
 });
 
 Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);

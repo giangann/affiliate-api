@@ -29,5 +29,14 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    // 'google' => [
+    //     'client_id'     => env('GOOGLE_CLIENT_ID'),
+    //     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    //     'redirect'      => env('GOOGLE_REDIRECT')
+    // ],
+    'google' => [
+        'client_id'     => '767693761590-544ggek7v3r8rnl2smc95b284a5smdkl.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect'      => 'http://127.0.0.1:8000/google/callback',
+    ],
 ];
