@@ -1,10 +1,11 @@
 <?php
 
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WebsiteController;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,20 @@ use App\Http\Controllers\Api\WebsiteController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::apiResources([
     'websites' => WebsiteController::class,
+    'reviews' => ReviewController::class
 ]);
+
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/logout', [LoginController::class, 'logout']);
+});
+
+Route::post('/register', [RegisterController::class, 'register']);
