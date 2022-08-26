@@ -16,6 +16,11 @@ class WebsiteController extends Controller
     public function index()
     {
         $listWebsites = Website::all();
+
+        foreach($listWebsites as $w) {
+            $w->reviews;
+        }
+
         return response()->json($listWebsites);
     }
 
