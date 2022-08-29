@@ -28,7 +28,6 @@ class ReviewController extends Controller
                 'payout' => $review->payout,
                 'support' => $review->support
             ];
-            $review->user_name = $review->user->name;
         }
         return response()->json($listReviews);
     }

@@ -27,7 +27,12 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->model = new Website();
+        $website = Website::create($request->only($this->model->getFillable()));
+        return response()->json([
+            'status'=>200,
+            'data' => $website
+        ])
     }
 
     /**
@@ -48,9 +53,15 @@ class WebsiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Website $id)
     {
-        //
+        $this->model = new Website();
+        $website->update($request->only($this->model->getFillable()));
+        $website->save();
+        return response()->json([
+            'status'=>200,
+            'data' => $website
+        ])
     }
 
     /**

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     use HasFactory;
-
+    protected $appends = ['user_name'];
+    
     protected $fillable = [
         'score', 'content', 'website_id', 'user_id', 'offer', 'tracking', 'support', 'payout'
     ];
@@ -28,7 +29,7 @@ class Review extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function setUserNameAttribute()
+    public function getUserNameAttribute()
     {
         return $this->attributes['user_name'] = $this->user->name;
     }
