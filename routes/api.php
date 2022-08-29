@@ -39,6 +39,7 @@ Route::group([
 });
 
 Route::get('websites', [WebsiteController::class, 'index']);
+Route::get('websites/show/{id}', [WebsiteController::class, 'show']);
 Route::get('reviews', [ReviewController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
 

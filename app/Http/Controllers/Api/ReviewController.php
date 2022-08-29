@@ -15,14 +15,20 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listReviews = Review::all();
+        $listReviews = Review::where('website_id', $request->websiteId)->get();
+
         foreach ($listReviews as $review) {
             $review->totalDislike = $review->likes()->where('is_like', Like::STATUS_LIKE['DISLIKE'])->count();
             $review->totalLike = $review->likes()->where('is_like', Like::STATUS_LIKE['LIKE'])->count();
+            $review->rating = [
+                'offer' => $review->offer,
+                'tracking' => $review->tracking,
+                'payout' => $review->payout,
+                'support' => $review->support
+            ];
         }
-        // $listReviews->totalLike = $listReview->like
         return response()->json($listReviews);
     }
 
@@ -76,7 +82,7 @@ class ReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $review = Review::find($id);
         $this->model = new Review();
         $request->only($this->model->getFillable());
