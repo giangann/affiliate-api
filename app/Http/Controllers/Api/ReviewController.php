@@ -28,7 +28,9 @@ class ReviewController extends Controller
                 'payout' => $review->payout,
                 'support' => $review->support
             ];
-            $review->user_name = $review->user->name;
+            // if (!empty(auth()->user())) {
+                $review->is_liked = $review->likes()->where('user_id', auth()->user()->id)->get()->is_like;
+            // }
         }
         return response()->json($listReviews);
     }
