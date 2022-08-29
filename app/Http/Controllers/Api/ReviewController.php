@@ -28,7 +28,21 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $review = Review::create([
+            'score' => $request->score,
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+            'website_id' => $request->websiteId || 1,
+            'offer' => $request->rating['offers'],
+            'payout' => $request->rating['payout'],
+            'tracking' => $request->rating['tracking'],
+            'support' => $request->rating['support']
+        ]);
+
+        return response()->json([
+            'status' => 200,
+            'data' => $review
+        ]);
     }
 
     // public function getReviewById(Request $request, Review $review)
