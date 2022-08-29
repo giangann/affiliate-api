@@ -1,9 +1,9 @@
 <?php
 
+namespace App\Http\Controllers\Api;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\WebsiteController;
-use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -36,3 +36,4 @@ Route::group([
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
+Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
