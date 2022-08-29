@@ -17,4 +17,9 @@ class Review extends Model
     {
         return $this->hasMany(Interaction::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 }
