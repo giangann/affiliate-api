@@ -18,8 +18,18 @@ class Review extends Model
         return $this->hasMany(Interaction::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function setUserNameAttribute()
+    {
+        return $this->attributes['user_name'] = $this->user->name;
     }
 }
