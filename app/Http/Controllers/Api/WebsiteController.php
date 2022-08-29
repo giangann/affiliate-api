@@ -44,6 +44,7 @@ class WebsiteController extends Controller
     public function show($id)
     {
         //
+        return Website::where('id', $id)->first();
     }
 
     /**
@@ -67,5 +68,10 @@ class WebsiteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getBySlug($slug)
+    {
+        $website = Website::where()->first();
     }
 }
