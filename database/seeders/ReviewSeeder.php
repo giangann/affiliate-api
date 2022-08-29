@@ -21,7 +21,6 @@ class ReviewSeeder extends Seeder
                 'content'=>'very greate',
                 'website_id'=>1,
                 'user_id'=>1,
-                'criteria_id'=>2,
             ]
             ]);
     }

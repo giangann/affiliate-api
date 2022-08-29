@@ -24,7 +24,7 @@ class LikeController extends Controller
         if ($request->likeId == 0) {
             $like = Like::create([
                 'review_id' => $request->reviewId,
-                'user_id' => $request->userId,
+                'user_id' => auth()->user(),
                 'is_like' => $request->status,
             ]);
         } else {

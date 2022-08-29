@@ -32,7 +32,7 @@ class WebsiteController extends Controller
         return response()->json([
             'status'=>200,
             'data' => $website
-        ])
+        ]);
     }
 
     /**
@@ -53,7 +53,7 @@ class WebsiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Website $id)
+    public function update(Request $request, Website $website)
     {
         $this->model = new Website();
         $website->update($request->only($this->model->getFillable()));
@@ -61,7 +61,7 @@ class WebsiteController extends Controller
         return response()->json([
             'status'=>200,
             'data' => $website
-        ])
+        ]);
     }
 
     /**
