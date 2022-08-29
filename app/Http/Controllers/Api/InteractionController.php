@@ -33,7 +33,7 @@ class InteractionController extends Controller
         if ($request->interactionId == 0) {
             $interaction = Interaction::create([
                 'review_id' => $request->reviewId,
-                'user_id' => $request->userId,
+                'user_id' => auth()->user()->id,
                 'is_like' => null,
                 'reply_content' => $request->replyContent,
             ]);
@@ -50,7 +50,7 @@ class InteractionController extends Controller
             'data' => $interaction
         ]);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -91,8 +91,8 @@ class InteractionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // Interaction::find($request)
     }
 }

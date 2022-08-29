@@ -22,20 +22,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'websites' => WebsiteController::class,
-    'reviews' => ReviewController::class
-]);
-
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
+
+    Route::apiResources([
+        'websites' => WebsiteController::class,
+        'reviews' => ReviewController::class
+    ]);
+
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
     Route::post('like/like', [LikeController::class, 'like']);
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
 });
+
+Route::get('websites', [WebsiteController::class, 'index']);
+Route::get('reviews', [ReviewController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
