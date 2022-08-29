@@ -26,10 +26,10 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
 
-    Route::apiResources([
-        'websites' => WebsiteController::class,
-        'reviews' => ReviewController::class
-    ]);
+//    Route::apiResources([
+//        'websites' => WebsiteController::class,
+//        'reviews' => ReviewController::class
+//    ]);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -37,6 +37,11 @@ Route::group([
     Route::post('like/like', [LikeController::class, 'like']);
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
 });
+
+Route::apiResources([
+    'websites' => WebsiteController::class,
+    'reviews' => ReviewController::class
+]);
 
 Route::get('websites', [WebsiteController::class, 'index']);
 Route::get('websites/show/{id}', [WebsiteController::class, 'show']);

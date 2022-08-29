@@ -16,6 +16,11 @@ class WebsiteController extends Controller
     public function index()
     {
         $listWebsites = Website::all();
+
+        foreach($listWebsites as $w) {
+            $w->reviews;
+        }
+
         return response()->json($listWebsites);
     }
 
@@ -43,7 +48,9 @@ class WebsiteController extends Controller
      */
     public function show($id)
     {
+        return Website::where('id', $id)->first();
         //
+        return Website::where('id', $id)->first();
     }
 
     /**
@@ -73,5 +80,10 @@ class WebsiteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getBySlug($slug)
+    {
+        $website = Website::where()->first();
     }
 }
