@@ -48,6 +48,7 @@ class WebsiteController extends Controller
      */
     public function show($id)
     {
+        return Website::where('id', $id)->first();
         //
         return Website::where('id', $id)->first();
     }

@@ -28,9 +28,9 @@ class ReviewController extends Controller
                 'payout' => $review->payout,
                 'support' => $review->support
             ];
-            if (!empty(auth()->user())) {
-                $review->is_liked = $review->likes()->where('user_id', auth()->user()->id)->get()->is_like;
-            }    
+            // if (!empty(auth()->user())) {
+//                $review->is_liked = $review->likes()->where('user_id', 1 ?? auth()->user()->id)->get()->is_like;
+            // }
         }
         return response()->json($listReviews);
     }
@@ -46,7 +46,7 @@ class ReviewController extends Controller
         $review = Review::create([
             'score' => $request->score,
             'content' => $request->content,
-            'user_id' => auth()->user()->id,
+            'user_id' => 1 ?? auth()->user()->id,
             'website_id' => $request->websiteId || 1,
             'offer' => $request->offer,
             'payout' => $request->payout,
