@@ -39,10 +39,10 @@ class ReviewController extends Controller
             'content' => $request->content,
             'user_id' => auth()->user()->id,
             'website_id' => $request->websiteId || 1,
-            'offer' => $request->rating['offers'],
-            'payout' => $request->rating['payout'],
-            'tracking' => $request->rating['tracking'],
-            'support' => $request->rating['support']
+            'offer' => $request->offer,
+            'payout' => $request->payout,
+            'tracking' => $request->tracking,
+            'support' => $request->support
         ]);
 
         return response()->json([
@@ -77,10 +77,17 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
         
-        // $review = Review::find($id);
-        // dd($request->only(Review::getFillable()));
+        $review = Review::find($id);
+        $this->model = new Review();
+        $request->only($this->model->getFillable());
 
-        // $review->update();
+        $review->update($request->only($this->model->getFillable()));
+        $review->save();
+
+        return response()->json([
+            'status' => 200,
+            'data' => $review
+        ]);
     }
 
     /**
