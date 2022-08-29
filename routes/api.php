@@ -30,9 +30,13 @@ Route::apiResources([
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
-    Route::post('/login', [LoginController::class, 'login']);
     Route::post('/logout', [LoginController::class, 'logout']);
+
+    Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
+    Route::post('like/like', [LikeController::class, 'like']);
+    Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
 });
+Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);

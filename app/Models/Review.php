@@ -12,4 +12,9 @@ class Review extends Model
     protected $fillable = [
         'score', 'content', 'website_id', 'user_id', 'criteria_id'
     ];
+
+    public function interactions()
+    {
+        return $this->hasMany(Interaction::class);
+    }
 }
