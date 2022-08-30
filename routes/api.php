@@ -48,7 +48,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
-Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+// Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
 
 Route::apiResources([
     'websites' => WebsiteController::class,

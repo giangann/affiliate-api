@@ -35,6 +35,11 @@ class CriteriaSeeder extends Seeder
                 'name'=>'Support',
                 'max_score'=>5,
                 'min_score'=>0
+            ],
+            [
+                'name'=>'Overal Rating',
+                'max_score'=>5,
+                'min_score'=>0
             ]
         ]);
     }
