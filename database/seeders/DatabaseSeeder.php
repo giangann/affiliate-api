@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentMethodSeeder::class);
         $this->call(PaymentFrequencySeeder::class);
         $this->call(TrackingSoftwareSeeder::class);
+        $this->call(CategorySeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CriteriaSeeder::class);
         $this->call(WebsiteSeeder::class);
