@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Like;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class ReviewController extends Controller
 {
@@ -17,7 +21,7 @@ class ReviewController extends Controller
      */
     public function index(Request $request)
     {
-        $listReviews = Review::where('website_id', $request->websiteId)->get();
+        $listReviews = Review::where('website_id', $request->websiteId)->orderBy('created_at', 'desc')->get();
 
         foreach ($listReviews as $review) {
             $review->totalDislike = $review->likes()->where('is_like', Like::STATUS_LIKE['DISLIKE'])->count();
@@ -32,6 +36,15 @@ class ReviewController extends Controller
 //                $review->is_liked = $review->likes()->where('user_id', 1 ?? auth()->user()->id)->get()->is_like;
             // }
         }
+
+        $per_page = $request->per_page;
+        $page = $request->page;
+
+        if (isset($per_page) && isset($page) && $per_page != -1)
+        {
+            return $this->paginateData($listReviews, $per_page, $page);
+        }
+
         return response()->json($listReviews);
     }
 
@@ -109,4 +122,27 @@ class ReviewController extends Controller
     {
         //
     }
+
+    public function paginateData($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        $paginator =  new LengthAwarePaginator($items->forPage($page, $perPage)->values()->all(), $items->count(), $perPage, $page, $options);
+
+        $pagination = [
+            "total" => $paginator->total(),
+            "per_page" => (int)$perPage,
+            "current_page" => $paginator->currentPage(),
+            "total_pages" => $paginator->lastPage(),
+        ];
+
+        $meta = ['pagination' => $pagination];
+
+        return response()->json([
+            "data" => $paginator->items(),
+            "meta" => $meta
+        ]);
+    }
 }
+
+
