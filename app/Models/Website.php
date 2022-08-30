@@ -11,7 +11,7 @@ class Website extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'link', 'link_banner', 'link_offer', 'api', 'referral_commissione', 'mininum_payment', 'payment_frequency_id', 'tracking_software_id','category_id','payment_method_id'];
+    protected $fillable = ['name', 'link', 'link_banner', 'link_offer', 'api', 'referral_commissione', 'minimum_payment', 'payment_frequency_id', 'tracking_software_id', 'category_id', 'payment_method_id'];
 
     public function reviews()
     {
