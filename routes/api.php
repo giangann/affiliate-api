@@ -28,7 +28,8 @@ Route::group([
 
 //    Route::apiResources([
 //        'websites' => WebsiteController::class,
-//        'reviews' => ReviewController::class
+//        'reviews' => ReviewController::class,
+//        'categories' => CategoryController::class
 //    ]);
 
     Route::post('/logout', [LoginController::class, 'logout']);
@@ -38,16 +39,19 @@ Route::group([
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
 });
 
-Route::apiResources([
-    'websites' => WebsiteController::class,
-    'reviews' => ReviewController::class
-]);
-
 Route::get('websites', [WebsiteController::class, 'index']);
+Route::get('websites/top-10', [WebsiteController::class, 'top10']);
 Route::get('websites/show/{id}', [WebsiteController::class, 'show']);
+
 Route::get('reviews', [ReviewController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
 // Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+
+Route::apiResources([
+    'websites' => WebsiteController::class,
+    'reviews' => ReviewController::class,
+    'categories' => CategoryController::class
+]);
