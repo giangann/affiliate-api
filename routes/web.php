@@ -16,5 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);

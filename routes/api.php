@@ -47,8 +47,7 @@ Route::get('reviews', [ReviewController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
-// Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::class, 'loginWithGoogle']);
 
 Route::apiResources([
     'websites' => WebsiteController::class,
