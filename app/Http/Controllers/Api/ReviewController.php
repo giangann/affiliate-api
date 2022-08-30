@@ -60,7 +60,7 @@ class ReviewController extends Controller
             'score' => $request->score,
             'content' => $request->content,
             'user_id' => 1 ?? auth()->user()->id,
-            'website_id' => $request->websiteId || 1,
+            'website_id' => $request->websiteId,
             'offer' => $request->offer,
             'payout' => $request->payout,
             'tracking' => $request->tracking,
