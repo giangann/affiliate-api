@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateAddCategoryIdToWebsitesTable extends Migration
+class UpdateWebsiteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class UpdateAddCategoryIdToWebsitesTable extends Migration
     public function up()
     {
         Schema::table('websites', function (Blueprint $table) {
-            //
-            $table->foreignId('category_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -27,8 +26,7 @@ class UpdateAddCategoryIdToWebsitesTable extends Migration
     public function down()
     {
         Schema::table('websites', function (Blueprint $table) {
-            //
-            $table->dropConstrainedForeignId('category_id');
+            $table->dropTimestamps();
         });
     }
 }

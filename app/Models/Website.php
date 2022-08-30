@@ -17,4 +17,13 @@ class Website extends Model
     {
         return $this->hasMany(Review::class, 'website_id');
     }
+
+    public function scopeSearch($query, $keyword)
+    {
+        if (isset($keyword)) {
+            $query = $query->where('name', 'like', "%$keyword%");
+        }
+
+        return $query;
+    }
 }

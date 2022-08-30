@@ -13,9 +13,9 @@ class WebsiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listWebsites = Website::all();
+        $listWebsites = Website::search($request->keyword)->get();
 
         foreach ($listWebsites as $w) {
             $w->reviews;
@@ -107,4 +107,3 @@ class WebsiteController extends Controller
         return array_slice($sorted->values()->all(), 0, 10);
     }
 }
-
