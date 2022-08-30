@@ -60,7 +60,7 @@ class ReviewController extends Controller
             'score' => $request->score,
             'content' => $request->content,
             'user_id' => 1 ?? auth()->user()->id,
-            'website_id' => $request->websiteId || 1,
+            'website_id' => $request->websiteId,
             'offer' => $request->offer,
             'payout' => $request->payout,
             'tracking' => $request->tracking,
@@ -142,6 +142,13 @@ class ReviewController extends Controller
             "data" => $paginator->items(),
             "meta" => $meta
         ]);
+    }
+
+    public function getRecentReviews()
+    {
+        $comments = Review::query()->with(['website'])->orderBy('created_at', 'desc');
+
+        return $comments->simplePaginate(5);
     }
 }
 

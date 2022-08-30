@@ -44,11 +44,11 @@ Route::get('websites/top-10', [WebsiteController::class, 'top10']);
 Route::get('websites/show/{id}', [WebsiteController::class, 'show']);
 
 Route::get('reviews', [ReviewController::class, 'index']);
+Route::get('reviews/recent', [ReviewController::class, 'getRecentReviews']);
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/get-google-sign-in-url', [\App\Http\Controllers\Api\GoogleController::class, 'getGoogleSignInUrl']);
-// Route::get('/google/callback', [\App\Http\Controllers\Api\GoogleController::class, 'loginCallback']);
+Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::class, 'loginWithGoogle']);
 
 Route::apiResources([
     'websites' => WebsiteController::class,
