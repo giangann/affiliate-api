@@ -98,8 +98,9 @@ class WebsiteController extends Controller
             foreach ($website->reviews as $review) {
                 $sumScore += $review->score;
             }
-
-            $website->aveScore = $sumScore / count($website->reviews);
+            if ($website->reviews->count()) {
+                $website->aveScore = $sumScore / $website->reviews->count();
+            }
         }
 
         $sorted = $websites->sortByDesc('aveScore');
