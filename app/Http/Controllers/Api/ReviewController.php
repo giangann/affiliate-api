@@ -143,6 +143,13 @@ class ReviewController extends Controller
             "meta" => $meta
         ]);
     }
+
+    public function getRecentReviews()
+    {
+        $comments = Review::query()->with(['website'])->orderBy('created_at', 'desc');
+
+        return $comments->simplePaginate(5);
+    }
 }
 
 
