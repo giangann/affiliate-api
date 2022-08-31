@@ -37,6 +37,7 @@ Route::group([
     Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
     Route::post('like/like', [LikeController::class, 'like']);
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
+    Route::get('users/me', [UserController::class, 'me']);
 });
 
 Route::get('websites', [WebsiteController::class, 'index']);
