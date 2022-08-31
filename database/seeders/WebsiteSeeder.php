@@ -29,7 +29,7 @@ class WebsiteSeeder extends Seeder
                 'category_id' => 1
             ],
             [
-                'name' => 'TEST 2',
+                'name' => 'DmsAffiliates',
                 'link' => 'https://adverten.com/en/?utm_source=referral&utm_medium=forum&utm_campaign=affplus',
                 'link_banner' => 'https://apimg.net/networks/profile_banner/1d8f6ac7-a9af-490b-b8af-c441653731a5.png',
                 'link_offer' => 'https://www.affplus.com/n/adverten',
@@ -42,7 +42,7 @@ class WebsiteSeeder extends Seeder
                 'category_id' => 3
             ],
             [
-                'name' => 'Bao 123321',
+                'name' => 'AdsEmpire',
                 'link' => 'https://adverten.com/en/?utm_source=referral&utm_medium=forum&utm_campaign=affplus',
                 'link_banner' => 'https://apimg.net/networks/profile_banner/1d8f6ac7-a9af-490b-b8af-c441653731a5.png',
                 'link_offer' => 'https://www.affplus.com/n/adverten',
