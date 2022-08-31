@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PaymentMethod;
+use App\Models\TrackingSoftware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -55,5 +57,8 @@ Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::c
 Route::apiResources([
     'websites' => WebsiteController::class,
     'reviews' => ReviewController::class,
-    'categories' => CategoryController::class
+    'categories' => CategoryController::class,
+    'payment_frequencies' => PaymentFrequencyController::class,
+    'tracking_software' => TrackingSoftwareController::class,
+    'payment_method' => PaymentMethodController::class,
 ]);
