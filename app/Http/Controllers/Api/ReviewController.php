@@ -59,7 +59,7 @@ class ReviewController extends Controller
         $review = Review::create([
             'score' => $request->score,
             'content' => $request->content,
-            'user_id' => 1 ?? auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'website_id' => $request->websiteId,
             'offer' => $request->offer,
             'payout' => $request->payout,
