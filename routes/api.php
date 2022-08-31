@@ -42,6 +42,7 @@ Route::group([
 Route::get('websites', [WebsiteController::class, 'index']);
 Route::get('websites/top-10', [WebsiteController::class, 'top10']);
 Route::get('websites/show/{id}', [WebsiteController::class, 'show']);
+Route::get('websites/getByCategoryId', [WebsiteController::class, 'getByCategoryId']);
 
 Route::get('reviews', [ReviewController::class, 'index']);
 Route::get('reviews/recent', [ReviewController::class, 'getRecentReviews']);

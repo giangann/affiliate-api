@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\Website;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 class WebsiteController extends Controller
 {
@@ -106,5 +109,41 @@ class WebsiteController extends Controller
         $sorted = $websites->sortByDesc('aveScore');
 
         return array_slice($sorted->values()->all(), 0, 10);
+    }
+
+    public function getByCategoryId(Request $request)
+    {
+        $websites = Website::where('category_id', $request->category_id)->with(['reviews'])->orderBy('created_at', 'desc')->get();
+
+        $per_page = $request->per_page;
+        $page = $request->page;
+
+        if (isset($per_page) && isset($page) && $per_page != -1)
+        {
+            return $this->paginateData($websites, $per_page, $page);
+        }
+
+        return response()->json($websites);
+    }
+
+    public function paginateData($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        $paginator =  new LengthAwarePaginator($items->forPage($page, $perPage)->values()->all(), $items->count(), $perPage, $page, $options);
+
+        $pagination = [
+            "total" => $paginator->total(),
+            "per_page" => (int)$perPage,
+            "current_page" => $paginator->currentPage(),
+            "total_pages" => $paginator->lastPage(),
+        ];
+
+        $meta = ['pagination' => $pagination];
+
+        return response()->json([
+            "data" => $paginator->items(),
+            "meta" => $meta
+        ]);
     }
 }
