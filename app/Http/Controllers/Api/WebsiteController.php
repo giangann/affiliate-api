@@ -79,6 +79,7 @@ class WebsiteController extends Controller
     public function destroy($id)
     {
         //
+        return Website::where('id',$id)->delete();
     }
 
     public function getBySlug($slug)
