@@ -38,4 +38,9 @@ class Review extends Model
     {
         return $this->belongsTo(Website::class);
     }
+
+    public function setAvgOfferAttribute()
+    {
+        return $this->atrributes['avg_offer'] = 3;
+    }
 }

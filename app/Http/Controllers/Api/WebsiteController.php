@@ -31,6 +31,10 @@ class WebsiteController extends Controller
             if ($website->reviews->count()) {
                 $website->aveScore = $sumScore / $website->reviews->count();
             }
+            $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+            $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+            $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+            $website->avg_support = $website->reviews()->pluck('support')->avg();
         }
 
         return response()->json($listWebsites);
@@ -66,9 +70,15 @@ class WebsiteController extends Controller
         foreach ($website->reviews as $review) {
             $sumScore += $review->score;
         }
+        
         if ($website->reviews->count()) {
             $website->aveScore = $sumScore / $website->reviews->count();
         }
+        $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+        $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+        $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+        $website->avg_support = $website->reviews()->pluck('support')->avg();
+
         return $website;
         //
     }
@@ -123,6 +133,11 @@ class WebsiteController extends Controller
             if ($website->reviews->count()) {
                 $website->aveScore = $sumScore / $website->reviews->count();
             }
+
+            $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+            $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+            $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+            $website->avg_support = $website->reviews()->pluck('support')->avg();
         }
 
         $sorted = $websites->sortByDesc('aveScore');
