@@ -65,21 +65,23 @@ class WebsiteController extends Controller
     public function show($id)
     {
         $website = Website::where('id', $id)->first();
-        $sumScore = 0;
+        if (!empty($website)) {
+            $sumScore = 0;
 
-        foreach ($website->reviews as $review) {
-            $sumScore += $review->score;
-        }
-        
-        if ($website->reviews->count()) {
-            $website->aveScore = $sumScore / $website->reviews->count();
-        }
-        $website->avg_offer = $website->reviews()->pluck('offer')->avg();
-        $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
-        $website->avg_payout = $website->reviews()->pluck('payout')->avg();
-        $website->avg_support = $website->reviews()->pluck('support')->avg();
+            foreach ($website->reviews as $review) {
+                $sumScore += $review->score;
+            }
 
-        return $website;
+            if ($website->reviews->count()) {
+                $website->aveScore = $sumScore / $website->reviews->count();
+            }
+            $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+            $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+            $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+            $website->avg_support = $website->reviews()->pluck('support')->avg();
+
+            return $website;
+        }
         //
     }
 
