@@ -20,8 +20,17 @@ class WebsiteController extends Controller
     {
         $listWebsites = Website::search($request->keyword)->get();
 
-        foreach ($listWebsites as $w) {
-            $w->reviews;
+        foreach ($listWebsites as $website) {
+            $website->reviews;
+
+            $sumScore = 0;
+
+            foreach ($website->reviews as $review) {
+                $sumScore += $review->score;
+            }
+            if ($website->reviews->count()) {
+                $website->aveScore = $sumScore / $website->reviews->count();
+            }
         }
 
         return response()->json($listWebsites);
@@ -51,7 +60,16 @@ class WebsiteController extends Controller
      */
     public function show($id)
     {
-        return Website::where('id', $id)->first();
+        $website = Website::where('id', $id)->first();
+        $sumScore = 0;
+
+        foreach ($website->reviews as $review) {
+            $sumScore += $review->score;
+        }
+        if ($website->reviews->count()) {
+            $website->aveScore = $sumScore / $website->reviews->count();
+        }
+        return $website;
         //
     }
 
@@ -82,7 +100,7 @@ class WebsiteController extends Controller
     public function destroy($id)
     {
         //
-        return Website::where('id',$id)->delete();
+        return Website::where('id', $id)->delete();
     }
 
     public function getBySlug($slug)
@@ -119,8 +137,7 @@ class WebsiteController extends Controller
         $per_page = $request->per_page;
         $page = $request->page;
 
-        if (isset($per_page) && isset($page) && $per_page != -1)
-        {
+        if (isset($per_page) && isset($page) && $per_page != -1) {
             return $this->paginateData($websites, $per_page, $page);
         }
 

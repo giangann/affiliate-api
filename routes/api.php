@@ -28,11 +28,11 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
 
-//    Route::apiResources([
-//        'websites' => WebsiteController::class,
-//        'reviews' => ReviewController::class,
-//        'categories' => CategoryController::class
-//    ]);
+   Route::apiResources([
+       'websites' => WebsiteController::class,
+       'reviews' => ReviewController::class,
+       'categories' => CategoryController::class
+   ]);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -56,7 +56,7 @@ Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::c
 
 Route::apiResources([
     'websites' => WebsiteController::class,
-    'reviews' => ReviewController::class,
+    // 'reviews' => ReviewController::class,
     'categories' => CategoryController::class,
     'payment_frequencies' => PaymentFrequencyController::class,
     'tracking_software' => TrackingSoftwareController::class,
