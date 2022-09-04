@@ -24,14 +24,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::apiResources([
+    'categories' => CategoryController::class,
+    'payment_frequencies' => PaymentFrequencyController::class,
+    'tracking_software' => TrackingSoftwareController::class,
+    'payment_method' => PaymentMethodController::class,
+]);
+
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
+    Route::get('users/me', [UserController::class, 'me']);  
 
    Route::apiResources([
        'websites' => WebsiteController::class,
        'reviews' => ReviewController::class,
-       'categories' => CategoryController::class
    ]);
 
     Route::post('/logout', [LoginController::class, 'logout']);
@@ -39,7 +46,6 @@ Route::group([
     Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
     Route::post('like/like', [LikeController::class, 'like']);
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
-    Route::get('users/me', [UserController::class, 'me']);
 });
 
 Route::get('websites', [WebsiteController::class, 'index']);
@@ -53,12 +59,3 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::class, 'loginWithGoogle']);
-
-Route::apiResources([
-    'websites' => WebsiteController::class,
-    // 'reviews' => ReviewController::class,
-    'categories' => CategoryController::class,
-    'payment_frequencies' => PaymentFrequencyController::class,
-    'tracking_software' => TrackingSoftwareController::class,
-    'payment_method' => PaymentMethodController::class,
-]);
