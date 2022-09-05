@@ -23,6 +23,7 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('websites/getByCategoryId', [WebsiteController::class, 'getByCategoryId']);
 
 Route::apiResources([
     'categories' => CategoryController::class,
@@ -34,7 +35,7 @@ Route::apiResources([
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
-    Route::get('users/me', [UserController::class, 'me']);  
+    Route::get('users/me', [UserController::class, 'me']);
 
    Route::apiResources([
        'websites' => WebsiteController::class,
@@ -51,7 +52,6 @@ Route::group([
 Route::get('websites', [WebsiteController::class, 'index']);
 Route::get('websites-top-10', [WebsiteController::class, 'top10']);
 Route::get('websites/show/{id}', [WebsiteController::class, 'show']);
-Route::get('websites/getByCategoryId', [WebsiteController::class, 'getByCategoryId']);
 
 Route::get('reviews', [ReviewController::class, 'index']);
 Route::get('reviews-recent', [ReviewController::class, 'getRecentReviews']);
