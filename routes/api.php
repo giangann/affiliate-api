@@ -41,13 +41,17 @@ Route::group([
        'websites' => WebsiteController::class,
        'reviews' => ReviewController::class,
    ]);
+    Route::get('reviews', [ReviewController::class, 'index']);
+
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
-    Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
     Route::post('like/like', [LikeController::class, 'like']);
     Route::post('interaction/replyContent', [InteractionController::class, 'replyContent']);
+    Route::delete('interaction/{id}', [InteractionController::class, 'destroy']);
+
 });
+Route::get('interaction/getInteractionByIdReview', [InteractionController::class, 'getListByIdReview']);
 
 Route::get('websites', [WebsiteController::class, 'index']);
 Route::get('websites-top-10', [WebsiteController::class, 'top10']);

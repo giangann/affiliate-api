@@ -20,15 +20,17 @@ class LikeController extends Controller
 
     public function like(Request $request)
     {
-        $like = 0;
-        if ($request->likeId == 0) {
+        $userId = auth()->user()->id;
+        $like = Like::where([['user_id',$userId],['review_id',$request->reviewId]]);
+
+        if ($like->doesntExist()) {
             $like = Like::create([
                 'review_id' => $request->reviewId,
-                'user_id' => auth()->user(),
+                'user_id' => $userId,
                 'is_like' => $request->status,
             ]);
         } else {
-            $like = Like::find($request->likeId);
+            $like = Like::find($like->first()->id);
             $like->update([
                 'is_like' => $request->status,
             ]);

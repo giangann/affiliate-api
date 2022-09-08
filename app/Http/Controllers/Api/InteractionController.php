@@ -21,6 +21,10 @@ class InteractionController extends Controller
     public function getListByIdReview(Request $request)
     {
         $listInteraction = Interaction::where('review_id', $request->reviewId)->get();
+        foreach ($listInteraction as $interaction){
+            $interaction->user = $interaction->user()->where('id',$interaction->user_id)->first();
+        }
+        // dd($listInteraction);
         return response()->json([
             'status' => 200,
             'data' => $listInteraction
@@ -91,8 +95,13 @@ class InteractionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        // Interaction::find($request)
+        $interaction = Interaction::find($id)->delete();
+        // dd($interaction);
+        return response()->json([
+            'status' => 200,
+            'data' => $interaction
+        ]);
     }
 }

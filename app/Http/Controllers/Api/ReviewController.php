@@ -32,9 +32,13 @@ class ReviewController extends Controller
                 'payout' => $review->payout,
                 'support' => $review->support
             ];
-            // if (!empty(auth()->user())) {
-//                $review->is_liked = $review->likes()->where('user_id', 1 ?? auth()->user()->id)->get()->is_like;
-            // }
+            $likeOfReview = Like::where(
+                [
+                    ['user_id',$request->user_id??0],
+                    ['review_id',$review['id']]
+                ]
+            );
+            $review->is_liked = $likeOfReview->first()->is_like ?? null;
         }
 
         $per_page = $request->per_page;
@@ -87,6 +91,11 @@ class ReviewController extends Controller
     public function show($id)
     {
         //
+        $review = Review::find($id);
+        return response()->json([
+            'status' => 200,
+            'data' => $review
+        ]);
     }
 
     /**
@@ -99,6 +108,7 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
 
+        // dd($id, $request);
         $review = Review::find($id);
         $this->model = new Review();
         $request->only($this->model->getFillable());
