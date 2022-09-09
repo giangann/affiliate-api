@@ -31,7 +31,11 @@ class Review extends Model
 
     public function getUserNameAttribute()
     {
-        return $this->attributes['user_name'] = $this->user->name;
+        if (!empty($this->user->name)) {
+            return $this->attributes['user_name'] = $this->user->name;
+        } else {
+            return $this->attributes['user_name'] = '';
+        }
     }
 
     public function website()

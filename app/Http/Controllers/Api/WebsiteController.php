@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Website;
+use App\Models\Review;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class WebsiteController extends Controller
 {
@@ -180,5 +182,20 @@ class WebsiteController extends Controller
             "data" => $paginator->items(),
             "meta" => $meta
         ]);
+    }
+
+    public function featureNetwork(Request $request)
+    {
+        $listWebsiteId = Review::groupBy('website_id')
+            ->selectRaw('count(*) as total, website_id')->orderBy('total', 'desc')
+            ->get(['count(*), website_id'])->toArray();
+        
+        $featuresNetwork = [];
+        foreach ($listWebsiteId as $item) {
+            $website = Website::find($item['website_id'])->toArray();
+            array_push($featuresNetwork, $website);
+        }
+        
+        return response()->json($featuresNetwork);
     }
 }

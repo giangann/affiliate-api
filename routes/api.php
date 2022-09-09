@@ -63,3 +63,4 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login-with-google', [\App\Http\Controllers\Api\GoogleController::class, 'loginWithGoogle']);
+Route::get('/websites-feature-network', [WebsiteController::class, 'featureNetwork']);
