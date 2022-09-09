@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Website;
+use App\Models\User;
+use App\Models\ReviewRemain;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -50,6 +52,18 @@ class WebsiteController extends Controller
     {
         $this->model = new Website();
         $website = Website::create($request->only($this->model->getFillable()));
+
+        // user can write 5 review for each website (in 1 day)
+        $allUsers = User::all();
+        foreach($allUsers as $user){
+            ReviewRemain::create(
+                [
+                    'user_id'=>$user->id,
+                    'website_id'=>$website->id,
+                    'reviews_remain'=>5
+                ]
+            );
+        }
         return response()->json([
             'status' => 200,
             'data' => $website
