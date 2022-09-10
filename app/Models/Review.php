@@ -11,7 +11,7 @@ class Review extends Model
     protected $appends = ['user_name'];
 
     protected $fillable = [
-        'score', 'content', 'website_id', 'user_id', 'offer', 'tracking', 'support', 'payout'
+        'score', 'content', 'website_id','image', 'user_id', 'offer', 'tracking', 'support', 'payout'
     ];
 
     public function interactions()

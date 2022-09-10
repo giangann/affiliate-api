@@ -68,7 +68,8 @@ class ReviewController extends Controller
             'offer' => $request->offer,
             'payout' => $request->payout,
             'tracking' => $request->tracking,
-            'support' => $request->support
+            'support' => $request->support,
+            'image' => $request->image,
         ]);
 
         return response()->json([
