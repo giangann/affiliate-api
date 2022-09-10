@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WebsiteSeeder::class);
         $this->call(ReviewSeeder::class);
         $this->call(InteractionSeeder::class);
-
-
+        $this->call(ReviewRemainSeeder::class);
     }
 }
