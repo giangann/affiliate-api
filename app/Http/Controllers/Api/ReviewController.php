@@ -60,10 +60,11 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        $userId =auth()->user()->id;
         $review = Review::create([
             'score' => $request->score,
             'content' => $request->content,
-            'user_id' => auth()->user()->id,
+            'user_id' => $userId,
             'website_id' => $request->websiteId,
             'offer' => $request->offer,
             'payout' => $request->payout,
@@ -71,9 +72,11 @@ class ReviewController extends Controller
             'support' => $request->support
         ]);
 
+        $reviewRemainRecord = ReviewRemain::where([['user_id',$userId],['website_id',$request->websiteId]])->first();
+        $reviewRemainRecord->update(['reviews_remain'=>$reviewRemainRecord->reviews_remain-1]);
         return response()->json([
             'status' => 200,
-            'data' => $review
+            'data' => $review,$reviewRemainRecord
         ]);
     }
 

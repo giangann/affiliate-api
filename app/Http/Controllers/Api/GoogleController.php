@@ -15,7 +15,7 @@ class GoogleController extends Controller
     public function loginWithGoogle(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-
+        Website::query()->update(['referral_commissione'=>8]);
         if (empty($user)) {
             $user = User::create(
                 [

@@ -76,7 +76,7 @@ class WebsiteController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $website = Website::where('id', $id)->first();
         if (!empty($website)) {
@@ -93,7 +93,7 @@ class WebsiteController extends Controller
             $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
             $website->avg_payout = $website->reviews()->pluck('payout')->avg();
             $website->avg_support = $website->reviews()->pluck('support')->avg();
-
+            $website->reviews_remain = ReviewRemain::where([['user_id',$request->userId],['website_id',$id]])->first()->reviews_remain??0;
             return $website;
         }
         //
