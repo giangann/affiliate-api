@@ -11,7 +11,7 @@ class Review extends Model
     protected $appends = ['user_name'];
 
     protected $fillable = [
-        'score', 'content', 'website_id', 'user_id', 'offer', 'tracking', 'support', 'payout'
+        'score', 'content', 'website_id','image', 'user_id', 'offer', 'tracking', 'support', 'payout'
     ];
 
     public function interactions()
@@ -31,7 +31,11 @@ class Review extends Model
 
     public function getUserNameAttribute()
     {
-        return $this->attributes['user_name'] = $this->user->name;
+        if (!empty($this->user->name)) {
+            return $this->attributes['user_name'] = $this->user->name;
+        } else {
+            return $this->attributes['user_name'] = '';
+        }
     }
 
     public function website()
