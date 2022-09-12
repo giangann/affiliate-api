@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Website;
 use App\Models\User;
 use App\Models\ReviewRemain;
+use App\Models\PaymentMethod;
+use App\Models\PaymentFrequencies;
+use App\Models\TrackingSoftware;
 use App\Models\Review;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class WebsiteController extends Controller
 {
@@ -24,7 +28,7 @@ class WebsiteController extends Controller
     {
         $this->model = new Website();
         $data = $request->only($this->model->getFillable());
-        
+
         $listWebsites = Website::where($data)->search($request->keyword)->get();
         foreach ($listWebsites as $website) {
             $website->reviews;
@@ -205,13 +209,22 @@ class WebsiteController extends Controller
         $listWebsiteId = Review::groupBy('website_id')
             ->selectRaw('count(*) as total, website_id')->orderBy('total', 'desc')
             ->get(['count(*), website_id'])->toArray();
-        
+
         $featuresNetwork = [];
         foreach ($listWebsiteId as $item) {
             $website = Website::find($item['website_id'])->toArray();
             array_push($featuresNetwork, $website);
         }
-        
+
         return response()->json($featuresNetwork);
+    }
+    public function allFilter(){
+        $allFilter = new stdClass();
+
+        $allFilter->payment_method = PaymentMethod::all();
+        $allFilter->payment_frequencies = PaymentFrequencies::all();
+        $allFilter->tracking_software = TrackingSoftware::all();
+
+        return $allFilter;
     }
 }
