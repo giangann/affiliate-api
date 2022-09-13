@@ -17,7 +17,9 @@ class CreateInteractionsTable extends Migration
             $table->id();
             $table->boolean('is_like')->nullable()->default(null);
             $table->string('reply_content');
-            $table->foreignId('review_id')->constrained();
+            $table->unsignedBigInteger('review_id');
+            $table->foreign('review_id')->references('id')->on('reviews')->onDelete('cascade');
+            // $table->foreignId('review_id')->constrained();
             $table->foreignId('user_id')->constrained();
         });
     }

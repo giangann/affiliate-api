@@ -62,6 +62,10 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $userId =auth()->user()->id;
+
+        $reviewRemainRecord = ReviewRemain::where([['user_id',$userId],['website_id',$request->websiteId]])->first();
+        $reviewRemainRecord->update(['reviews_remain'=>$reviewRemainRecord->reviews_remain-1]);
+
         $review = Review::create([
             'score' => $request->score,
             'content' => $request->content,
@@ -74,8 +78,7 @@ class ReviewController extends Controller
             'image' => $request->image,
         ]);
 
-        $reviewRemainRecord = ReviewRemain::where([['user_id',$userId],['website_id',$request->websiteId]])->first();
-        $reviewRemainRecord->update(['reviews_remain'=>$reviewRemainRecord->reviews_remain-1]);
+
         return response()->json([
             'status' => 200,
             'data' => $review,$reviewRemainRecord
@@ -113,7 +116,6 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
 
-        // dd($id, $request);
         $review = Review::find($id);
         $this->model = new Review();
         $request->only($this->model->getFillable());

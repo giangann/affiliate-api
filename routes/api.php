@@ -30,6 +30,7 @@ Route::apiResources([
     'payment_frequencies' => PaymentFrequencyController::class,
     'tracking_software' => TrackingSoftwareController::class,
     'payment_method' => PaymentMethodController::class,
+    'banners'=> BannerController::class,
 ]);
 
 Route::group([
