@@ -20,11 +20,15 @@ class CreateWebsiteTable extends Migration
             $table->string('link_banner');
             $table->string('link_offer');
             $table->string('api');
-            $table->unsignedSmallInteger('referral_commissione');
-            $table->unsignedFloat('minimum_payment');
-            $table->foreignId('payment_method_id')->constrained();
-            $table->foreignId('payment_frequency_id')->constrained();
-            $table->foreignId('tracking_software_id')->constrained();
+            $table->string('description');
+            $table->string('tracking_link')->default('N/A');
+            $table->string('manager')->default('N/A');
+            $table->string('commision_type')->default('N/A');
+            $table->unsignedSmallInteger('offer_count');
+            $table->unsignedSmallInteger('referral_commission')->default(rand(1,10));
+            $table->unsignedFloat('minimum_payment')->default(rand(50,250));
+            $table->foreignId('payment_method_id')->constrained()->default(rand(1,3));
+            $table->foreignId('payment_frequency_id')->constrained()->default(rand(1,3));
         });
     }
 
