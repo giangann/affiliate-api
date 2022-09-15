@@ -28,7 +28,6 @@ class WebsiteController extends Controller
     {
         $this->model = new Website();
         $data = $request->only($this->model->getFillable());
-
         $listWebsites = Website::where($data)->search($request->keyword)->get();
         foreach ($listWebsites as $website) {
             $website->reviews;
