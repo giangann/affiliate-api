@@ -58,6 +58,31 @@ class WebsiteController extends Controller
      */
     public function store(Request $request)
     {
+        foreach ($request->payment_frequency_arr as $value) {
+            # code...
+            if(PaymentFrequencies::where('name',$value)->doesntExist()){
+                PaymentFrequencies::create(['name'=>$value]);
+            }
+        }
+
+        foreach ($request->tracking_software_arr as $value) {
+            # code...
+            if(TrackingSoftware::where('name',$value)->doesntExist()){
+                TrackingSoftware::create(['name'=>$value]);
+            }
+        }
+
+        foreach ($request->payment_method_arr as $value) {
+            # code...
+            if(PaymentMethod::where('name',$value)->doesntExist()){
+                PaymentMethod::create(['name'=>$value]);
+            }
+        }
+
+        // $request->payment_frequency = collect($request->payment_frequency)->implode(', ');
+        // $request->tracking_software = collect($request->tracking_software)->implode(', ');
+        // var_dump($request);
+
         $this->model = new Website();
         $website = Website::create($request->only($this->model->getFillable()));
 
