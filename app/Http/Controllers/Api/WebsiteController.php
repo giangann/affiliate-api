@@ -26,13 +26,13 @@ class WebsiteController extends Controller
      */
     public function index(Request $request)
     {
-        $keyWord = $request->keyword;
+        $keyword = $request->keyword;
 
         $this->model = new Website();
         $data = $request->only($this->model->getFillable());
-        $listWebsites = Website::where($data)->search($keyWord)->get();
+        $listWebsites = Website::where($data)->search($keyword)->get();
 
-        if (!$keyWord) {
+        if (!$keyword) {
             foreach ($listWebsites as $website) {
                 $website->reviews;
 
