@@ -13,6 +13,7 @@ class BannerController extends Controller
     //
     public function index()
     {
+        dd($this->request);
         $banners = Banner::all();
         return $banners;
     }
