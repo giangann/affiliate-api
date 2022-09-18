@@ -26,24 +26,36 @@ class WebsiteController extends Controller
      */
     public function index(Request $request)
     {
+        $keyword = $request->keyword;
+
         $this->model = new Website();
         $data = $request->only($this->model->getFillable());
-        $listWebsites = Website::where($data)->search($request->keyword)->get();
-        foreach ($listWebsites as $website) {
-            $website->reviews;
+        $listWebsites = Website::where($data)->search($keyword)->get();
 
-            $sumScore = 0;
+        if (!$keyword) {
+            foreach ($listWebsites as $website) {
+                $website->reviews;
 
-            foreach ($website->reviews as $review) {
-                $sumScore += $review->score;
+                $sumScore = 0;
+
+                foreach ($website->reviews as $review) {
+                    $sumScore += $review->score;
+                }
+                if ($website->reviews->count()) {
+                    $website->aveScore = $sumScore / $website->reviews->count();
+                }
+                $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+                $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+                $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+                $website->avg_support = $website->reviews()->pluck('support')->avg();
             }
-            if ($website->reviews->count()) {
-                $website->aveScore = $sumScore / $website->reviews->count();
-            }
-            $website->avg_offer = $website->reviews()->pluck('offer')->avg();
-            $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
-            $website->avg_payout = $website->reviews()->pluck('payout')->avg();
-            $website->avg_support = $website->reviews()->pluck('support')->avg();
+        }
+
+        $per_page = $request->per_page;
+        $page = $request->page;
+
+        if (isset($per_page) && isset($page) && $per_page != -1) {
+            return $this->paginateData($listWebsites, $per_page, $page);
         }
 
         return response()->json($listWebsites);

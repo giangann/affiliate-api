@@ -9,7 +9,7 @@ class Banner extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['link_of_image','path_to_website'];
+    protected $fillable = ['link_of_image','path_to_website','type'];
 
     public $timestamps = false;
 }

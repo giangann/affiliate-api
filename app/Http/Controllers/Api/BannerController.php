@@ -11,10 +11,18 @@ use App\Http\Controllers\Controller;
 class BannerController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $banners = Banner::all();
-        return $banners;
+        $type = intval($request->type);
+        // dd($type);
+
+        if ($type){
+            $banners = Banner::where('type',$type)->get();
+            return $banners;
+        } else{
+            $banners = Banner::all();
+            return $banners;
+        }
     }
 
     public function store(Request $request){
