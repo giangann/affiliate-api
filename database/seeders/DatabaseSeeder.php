@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(InteractionSeeder::class);
         $this->call(ReviewRemainSeeder::class);
         $this->call(BannerSeeder::class);
+        $this->call(WebsiteTypeSeeder::class);
 
     }
 }

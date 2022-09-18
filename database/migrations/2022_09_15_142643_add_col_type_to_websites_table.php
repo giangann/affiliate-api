@@ -14,7 +14,8 @@ class AddColTypeToWebsitesTable extends Migration
     public function up()
     {
         Schema::table('websites', function (Blueprint $table) {
-            $table->integer('type')->default(rand(1,3));
+            $table->integer('website_type_id')->default(1);
+            $table->boolean('is_net_work_of_the_month')->default(true);
         });
     }
 
@@ -27,6 +28,7 @@ class AddColTypeToWebsitesTable extends Migration
     {
         Schema::table('websites', function (Blueprint $table) {
             $table->dropColumn('type');
+            $table->dropColumn('is_net_work_of_the_month');
         });
     }
 }
