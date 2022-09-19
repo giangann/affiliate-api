@@ -17,10 +17,10 @@ class CreateWebsiteTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('link');
-            $table->string('link_banner');
-            $table->string('link_offer');
+            $table->string('link_banner')->nullable();
+            $table->string('link_offer');   
             $table->string('api')->nullable();
-            $table->string('description',2000);
+            $table->string('description',5000);
             $table->string('tracking_link')->default('N/A');
             $table->string('manager')->default('N/A');
             $table->string('commision_type')->default('N/A');
