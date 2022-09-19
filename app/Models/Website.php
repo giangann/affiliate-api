@@ -17,7 +17,7 @@ class Website extends Model
         'Advertising Network' => 3
     ];
 
-    protected $fillable = ['name', 'link', 'link_banner', 'link_offer', 'offer_count', 'api', 'description', 'payment_method', 'payment_frequency', 'tracking_software', 'referral_commission', 'minimum_payment',  'category_id', 'website_type_id', 'is_net_work_of_the_month', 'tracking_link', 'commision_type'];
+    protected $fillable = ['name', 'link', 'link_banner', 'link_offer', 'offer_count', 'api', 'description', 'payment_method', 'payment_frequency', 'tracking_software', 'referral_commission', 'minimum_payment',  'category_id', 'type', 'is_net_work_of_the_month', 'tracking_link', 'commision_type'];
 
     public function reviews()
     {
@@ -31,11 +31,6 @@ class Website extends Model
         }
 
         return $query;
-    }
-
-    public function website_type()
-    {
-        return $this->belongsTo(WebsiteType::class, 'website_type_id');
     }
 
     public function category()

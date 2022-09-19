@@ -121,7 +121,7 @@ class WebsiteController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $website = Website::where('id', $id)->with(['website_type', 'category'])->first();
+        $website = Website::where('id', $id)->with(['category'])->first();
         if (!empty($website)) {
             $sumScore = 0;
 

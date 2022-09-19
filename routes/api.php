@@ -31,7 +31,6 @@ Route::apiResources([
     'tracking_software' => TrackingSoftwareController::class,
     'payment_method' => PaymentMethodController::class,
     'banners'=> BannerController::class,
-    'website_types' => WebsiteTypeController::class
 ]);
 
 Route::group([
