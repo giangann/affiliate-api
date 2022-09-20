@@ -37,7 +37,7 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::get('users/me', [UserController::class, 'me']);
-
+    Route::get('websites/getNetworkOfTheMonth', [WebsiteController::class, 'getNetworkOfTheMonth']);
    Route::apiResources([
        'websites' => WebsiteController::class,
        'reviews' => ReviewController::class,

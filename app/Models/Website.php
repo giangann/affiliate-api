@@ -11,13 +11,20 @@ class Website extends Model
 {
     use HasFactory;
 
+    const IS_NETWORK_OF_THE_MONTH = ['YES' => 1, 'NO' => 0];
+
     const TYPE = [
         'Premium Network' => 1,
         'Affiliate Program' => 2,
         'Advertising Network' => 3
     ];
 
-    protected $fillable = ['name', 'link', 'link_banner', 'link_offer', 'offer_count', 'api', 'description', 'payment_method', 'payment_frequency', 'tracking_software', 'referral_commission', 'minimum_payment',  'category_id', 'type', 'is_net_work_of_the_month', 'tracking_link', 'commision_type'];
+    protected $fillable = ['name', 'link', 'link_banner',
+        'link_offer', 'offer_count', 'api',
+        'description', 'payment_method', 'payment_frequency',
+        'tracking_software', 'referral_commission', 'minimum_payment',
+        'category_id', 'type', 'is_net_work_of_the_month',
+        'tracking_link', 'commision_type', 'is_network_of_the_month'];
 
     public function reviews()
     {

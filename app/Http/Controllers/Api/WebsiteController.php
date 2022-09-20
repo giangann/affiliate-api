@@ -94,6 +94,11 @@ class WebsiteController extends Controller
         // $request->tracking_software = collect($request->tracking_software)->implode(', ');
         // var_dump($request);
 
+        if ($request->is_network_of_the_month === Website::IS_NETWORK_OF_THE_MONTH['YES']) {
+            Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first()
+                ->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+        }
+
         $this->model = new Website();
         $website = Website::create($request->only($this->model->getFillable()));
         // user can write 5 review for each website (in 1 day)
@@ -151,6 +156,11 @@ class WebsiteController extends Controller
      */
     public function update(Request $request, Website $website)
     {
+        if ($request->is_network_of_the_month === Website::IS_NETWORK_OF_THE_MONTH['YES']) {
+            Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first()
+                ->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+        }
+
         $this->model = new Website();
         $website->update($request->only($this->model->getFillable()));
         $website->save();
@@ -261,5 +271,27 @@ class WebsiteController extends Controller
         $allFilter->tracking_software = TrackingSoftware::all();
 
         return $allFilter;
+    }
+
+    public function getNetworkOfTheMonth()
+    {
+
+        $website = Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first();
+
+        $sumScore = 0;
+
+        foreach ($website->reviews as $review) {
+            $sumScore += $review->score;
+        }
+        if ($website->reviews->count()) {
+            $website->aveScore = $sumScore / $website->reviews->count();
+        }
+
+        $website->avg_offer = $website->reviews()->pluck('offer')->avg();
+        $website->avg_tracking = $website->reviews()->pluck('tracking')->avg();
+        $website->avg_payout = $website->reviews()->pluck('payout')->avg();
+        $website->avg_support = $website->reviews()->pluck('support')->avg();
+
+        return $website;
     }
 }
