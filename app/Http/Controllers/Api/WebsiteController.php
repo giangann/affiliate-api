@@ -95,8 +95,10 @@ class WebsiteController extends Controller
         // var_dump($request);
 
         if ($request->is_network_of_the_month === Website::IS_NETWORK_OF_THE_MONTH['YES']) {
-            Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first()
-                ->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+            $w = Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first();
+            if ($w) {
+                $w->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+            }
         }
 
         $this->model = new Website();
@@ -157,8 +159,10 @@ class WebsiteController extends Controller
     public function update(Request $request, Website $website)
     {
         if ($request->is_network_of_the_month === Website::IS_NETWORK_OF_THE_MONTH['YES']) {
-            Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first()
-                ->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+            $w = Website::where('is_network_of_the_month', Website::IS_NETWORK_OF_THE_MONTH['YES'])->first();
+            if ($w) {
+                $w->update(['is_network_of_the_month' => Website::IS_NETWORK_OF_THE_MONTH['NO']]);
+            }
         }
 
         $this->model = new Website();
